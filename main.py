@@ -14,12 +14,11 @@ class TestUrbanRoutes:
         else:
             raise Exception("Urban Routes URL is not reachable")
 
-        # do not modify - we need additional logging enabled in order to retrieve phone confirmation code
-        from selenium.webdriver import DesiredCapabilities
-        capabilities = DesiredCapabilities.CHROME
-        capabilities["goog:loggingPrefs"] = {'performance': 'ALL'}
+        # Enable performance logging to retrieve phone confirmation code
+        options = webdriver.ChromeOptions()
+        options.set_capability("goog:loggingPrefs", {"performance": "ALL"})
 
-        cls.driver = webdriver.Chrome()
+        cls.driver = webdriver.Chrome(options=options)
         cls.driver.get(data.URBAN_ROUTES_URL)
 
     def test_set_route(self):
